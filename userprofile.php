@@ -57,8 +57,8 @@ require "validation.php";
     <td>Location</td>
     </tr>";
 
-    if ($_GET['user'] != NULL){
-        $UserToSend = $_GET['user'];
+    if ($_GET['un'] != NULL){
+        $UserToSend = $_GET['un'];
         include "db_conn.php";
         $query = "SELECT * FROM `users` WHERE `Username` LIKE '{$UserToSend}%'";
         $result = mysqli_query($conn, $query);

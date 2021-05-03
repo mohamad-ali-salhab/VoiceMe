@@ -1,5 +1,5 @@
 <?php
-include "validation.php"
+include "adminvalidation.php"
 ?>
 
 <!DOCTYPE html>
@@ -30,35 +30,55 @@ include "validation.php"
             
     ?>
     
-    <div class="navbar">
-        <a href='home.php'>Home</a>
-        <a class="active" href='search.php'>Search</a>
+    <body>
+    <?php
+        if ($_SESSION['logged_in']!=true){
+            session_destroy();
+            header("Location: adminlogin.php");
+
+        }
+        else{
+            ;
+        }
+            
+    ?>
+    <nav class="navbar navbar-inverse">
+        <div class="container-fluid">
+            <!-- <div class="navbar-header">
+                <a class="active" href='home.php'>VoiceMe</a>
+            </div> -->
+    <ul class="nav navbar-nav">
+        <li><a class="active" href='adminhome.php'>VoiceMe</a></li>
+        <li><a href='adminsearch.php'>Search Users</a></li>
+        <li><a href='adminvoices.php'>Voices</a></li>
+        <li><a href='settings.php'>Settings</a></li>
+        <!-- <a href='search.php'>Search</a>
         <a href='settings.php'>Settings</a>
         <a href='contactus.php'>Contact Us</a>
-        <a href='aboutus.php'>About Us</a>
-        
-
-        <a style="float:right;" href="logout.php">Log Out</a>
-        <strong style="float:right;">
-        <?php
+        <a href='aboutus.php'>About Us</a> -->
+    </ul>
+    <ul class="nav navbar-nav navbar-right">        
+    <li><?php
             if ($_SESSION['logged_in']==true){
-                ?><img src="images/<?php echo $_SESSION["image"]; ?>" alt=""width="20" height="20" style="border-radius: 50%;">
-                <?php
                 echo $_SESSION['user'];
             }elseif ($_SESSION['logged_in']==false){
                 echo 'failed';
             }
-        ?>
-        </strong>
-
-    </div>
+                ?><img src="images/<?php echo $_SESSION["image"]; ?>" alt=""width="40" height="40" style="border-radius: 50%;">
+    </li>   
+    
+    <li><a href="adminlogout.php">Log Out</a></li>
+        <!-- <a style="float:right;" href="logout.php">Log Out</a>
+        <strong style="float:right;"> -->
+    </nav>
+    <div>
     
     
     <div class="container">
     
         <div class="row">
         <h2>Search by Username</h2>
-        <form method="POST" action="search.php">
+        <form method="POST" action="adminsearch.php">
         
         <input type="text" name="search" id="search" placeholder="search here...." class="form-control">  
         <button type="submit" >Search</button>
@@ -91,8 +111,8 @@ include "validation.php"
         <td>".$data['Username']."</td>
         <td>".$data['First Name']." ".$data['Last Name']."</td>
         <td>
-            <form method=\"POST\" action=\"userprofile.php?un=".$data['Username']."\">
-            <button type=\"submit\" >Send Audio</button>
+            <form method=\"POST\" action=\"adminuserprofile.php?un=".$data['Username']."\">
+                <button type=\"submit\" >See details</button>
             </form>
         </td>
         
