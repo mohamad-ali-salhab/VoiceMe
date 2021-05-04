@@ -1,28 +1,18 @@
+<?php
+// session_start();
+include "validation.php";
+?>
+
 <!DOCTYPE html>
-<html class="no-js" lang="">
-  <head>
-<meta http-equiv="content-type" content="text/html; charset=UTF-8">
-    <meta charset="utf-8">
-    <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Voice Recorder and Changer</title>
-    <meta name="description" content="">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <!-- <link rel="manifest" href="site.webmanifest"> -->
-
-    <!-- <link rel="apple-touch-icon" href="apple-touch-icon.png"> -->
-    <!-- Place favicon.ico in the root directory -->
-
-  
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="normalize-5.css">
-
     <script src="osd.js"></script>
-
-   <body>
-    <!--[if lt IE 8]>
-        <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
-    <![endif]-->
+    <title>User Profile</title>
 
     <style>
     body {
@@ -66,9 +56,73 @@
       }
     }
     </style>
+</head>
+<body>
+        
+        <?php
+        if ($_SESSION['logged_in']!=true){
+            session_destroy();
+            header("Location: index.php");
+
+        }
+        else{
+            ;
+        }
+            
+        ?>
 
 
-    <main style="display:flex; flex-direction:column;">
+
+        <div class="navbar">
+        <a href='index.php'>Home</a>
+        <a class="active" href='search.php'>Search</a>
+        <a href='settings.php'>Settings</a>
+        <a href='contactus.php'>Contact Us</a>
+        <a href='aboutus.php'>About Us</a>
+        
+
+        <a style="float:right;" href="logout.php">Log Out</a>
+        <strong style="float:right;">
+        <?php
+            if ($_SESSION['logged_in']==true){
+                ?><img src="images/<?php echo $_SESSION["image"]; ?>" alt=""width="20" height="20" style="border-radius: 50%;">
+                <?php
+                echo $_SESSION['user'];
+            }elseif ($_SESSION['logged_in']==false){
+                echo 'failed';
+            }
+        ?>
+        </strong>
+    </div>
+    <?php
+    echo "
+    <table style=\"border-collapse: collapse;margin-right: auto;margin-left:auto;\" border=\"i\">
+    <tr style='font-weight:bold;'>
+    <td>Image</td>
+    <td>Username</td>
+    <td>Full Name</td>
+    <td>Location</td>
+    </tr>";
+
+    if ($_GET['un'] != NULL){
+        // $_SESSION['usertosend'] = $_GET['un'];
+        $UserToSend = $_GET['un'];
+        $_SESSION['usertosend'] = $UserToSend;
+        include "db_conn.php";
+        $query = "SELECT * FROM `users` WHERE `Username` LIKE '{$UserToSend}%'";
+        $result = mysqli_query($conn, $query);
+        while($data = mysqli_fetch_array($result))
+        {
+        echo "
+        <tr>
+            <td><img src=\"images/".$data['Image']."\" width=\"100\" height=\"100\" style=\"border-radius: 50%;\"></td>
+            <td>".$data['Username']."</td>
+            <td>".$data['First Name']." ".$data['Last Name']."</td>
+            <td>".$data['Country'].", ".$data['State'].", ".$data['City']."</td>          
+        </tr>
+        ";
+        }} ?>
+        <main style="display:flex; flex-direction:column;">
       
        
       <div id="inputOutputArea" style="display:flex; padding:0.5rem; min-height:130px;">
@@ -112,7 +166,7 @@
                 <audio id="output-audio-tag" controls="controls"></audio>
                 <br><button id="regenerateAudioButton" style="margin:0 auto; margin-bottom: 0.3rem;" onclick="loadOutputAudio();EnbSave();">Change Voice</button>
                 <button id="saveButton" disabled style="margin:0 auto; margin-bottom: 0.3rem;" onclick="SaveRec();" >Send</button>
-              <!--  <a style="margin: 0 auto; width: min-content;" href="#" id="download-output-audio-link" download="output.wav"><button>download</button></a>-->
+                <!-- <a style="margin: 0 auto; width: min-content;" href="#" id="download-output-audio-link" download="output.wav"><button>download</button></a> -->
               </div>
             </div>
           </div>
@@ -440,23 +494,10 @@
           var dateTime = date+'-'+time;
           var file_name=dateTime+'.wav'
 
-            let outputAudioBuffer = globalAudioBuffer;
-
-            let i = 0;
-            for(let effect of window.effects) {
-
-                // let params = effect.params.reduce((a, value, i) => (a[effectSpecsMap[effect.name].params[i].name]=value, a), {});
-                // let paramsMap = effect.params.reduce((a,v) => (a[v.name]=v.value, a), {});
-                let params = JSON.parse(JSON.stringify(effect.params));
-                outputAudioBuffer = await window[effect.name+"Transformer"](outputAudioBuffer, params);
-                i++;
-            }
-          let outputWavBlob = await audioBufferToWaveBlob(outputAudioBuffer)
-
-
+          let outputWavBlob = await audioBufferToWaveBlob(globalAudioBuffer)
               let formData = new FormData();        
               formData.append("record", outputWavBlob, file_name);
-              let response = await fetch('db_save.php', {
+              let response = await fetch('db_send.php', {
                   method: 'POST',
                     body: formData
                   });
@@ -656,3 +697,8 @@
 
   
 
+
+
+        
+
+?>
