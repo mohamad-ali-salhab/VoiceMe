@@ -62,22 +62,21 @@ include "db_conn.php";
     <div>
         <?php 
         
-        // $query = mysqli_query($conn,"SELECT Uname, Audio_Path FROM audio WHERE Uname = '".$_SESSION['user']."'");
-        
-        // while ($row = mysqli_fetch_array($query)){
-            // echo '<a href="play.php?name='.$row['Audio_Path'].'">'.$row['Audio_Path'].'</a>';
-        // }
         $query = mysqli_query($conn,"SELECT file_path, receiver_name FROM records WHERE receiver_name='".$_SESSION['user']."'");
+        
+        // $query = mysqli_query($conn,"SELECT receiver_name, file_path FROM audio WHERE receiver_name = '".$_SESSION['user']."'");
+        
+        while ($row = mysqli_fetch_array($query)){
+            echo '<a href="play.php?name='.$row['file_path'].'">'.$row['file_path'].'</a>';
+        }
+
         if (mysqli_num_rows($query)>0){
             while ($row = mysqli_fetch_array($query)){
-                echo "<tr>";
-                echo '<audio><source src="'.$row["file_path"].'" type="audio/mp3"></audio>';
-                echo "</tr>";
-                ?>
-                <!-- <audio controls>
-                <audio>echo "<source src="'.$row["file_path"].'" type="audio/wav"></audio>
-                    Your browser does not support the audio element.
-                    <?php 
+                ?><tr>
+                    <td><audio controls><audio source="<?php echo $row['file_path'] ?>"></audio></td>
+                    <td><iframe width=200 height=200 src="<?php echo $row['file_path'] ?>"></iframe></td>
+            </tr>
+            <?php
             }
         }else{
             echo "<h2>You have no Recordings!</h2>";

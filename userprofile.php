@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html class="no-js" lang="">
   <head>
+    <?php 
+    include "validation.php";
+    ?>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
@@ -22,7 +25,39 @@
    <body>
      <?php /* session_start(); */
      $un = $_GET['un'];
-     ?>
+        if ($_SESSION['logged_in']!=true){
+            session_destroy();
+            header("Location: index.php");
+
+        }
+        else{
+            ;
+        }
+            
+    ?>
+    
+    <div class="navbar">
+        <a href='home.php'>Home</a>
+        <a class="active" href='search.php'>Search</a>
+        <a href='settings.php'>Settings</a>
+        <a href='contactus.php'>Contact Us</a>
+        <a href='aboutus.php'>About Us</a>
+        
+
+        <a style="float:right;" href="logout.php">Log Out</a>
+        <strong style="float:right;">
+        <?php
+            if ($_SESSION['logged_in']==true){
+                ?><img src="images/<?php echo $_SESSION["image"]; ?>" alt=""width="20" height="20" style="border-radius: 50%;">
+                <?php
+                echo $_SESSION['user'];
+            }elseif ($_SESSION['logged_in']==false){
+                echo 'failed';
+            }
+        ?>
+        </strong>
+
+    </div>
 
     <!--[if lt IE 8]>
         <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
@@ -442,7 +477,7 @@
           var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
           var time = today.getHours() + "_" + today.getMinutes() + "_" + today.getSeconds();
           var dateTime = date+'-'+time;
-          var file_name=dateTime+'.wav'
+          var file_name=dateTime+'.mp3'
 
             let outputAudioBuffer = globalAudioBuffer;
 
