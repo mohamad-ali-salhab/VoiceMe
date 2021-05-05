@@ -20,6 +20,10 @@
     <script src="osd.js"></script>
 
    <body>
+     <?php /* session_start(); */
+     $un = $_GET['un'];
+     ?>
+
     <!--[if lt IE 8]>
         <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
@@ -453,10 +457,9 @@
             }
           let outputWavBlob = await audioBufferToWaveBlob(outputAudioBuffer)
 
-
               let formData = new FormData();        
               formData.append("record", outputWavBlob, file_name);
-              let response = await fetch('db_save.php', {
+              let response = await fetch('db_save.php?un=<?php echo "$un" ?>', {
                   method: 'POST',
                     body: formData
                   });
