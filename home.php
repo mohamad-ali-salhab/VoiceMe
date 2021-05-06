@@ -61,27 +61,30 @@ include "db_conn.php";
     </nav>
     <div>
         <?php 
-        
-        $query = mysqli_query($conn,"SELECT file_path, receiver_name FROM records WHERE receiver_name='".$_SESSION['user']."'");
-        
-        // $query = mysqli_query($conn,"SELECT receiver_name, file_path FROM audio WHERE receiver_name = '".$_SESSION['user']."'");
-        
-        while ($row = mysqli_fetch_array($query)){
-            echo '<a href="play.php?name='.$row['file_path'].'">'.$row['file_path'].'</a>';
-        }
-
+        $query = mysqli_query($conn,"SELECT file_path, receiver_name, create_at FROM records WHERE receiver_name ='".$_SESSION['user']."'");
         if (mysqli_num_rows($query)>0){
-            while ($row = mysqli_fetch_array($query)){
-                ?><tr>
-                    <td><audio controls><audio source="<?php echo $row['file_path'] ?>"></audio></td>
-                    <td><iframe width=200 height=200 src="<?php echo $row['file_path'] ?>"></iframe></td>
-            </tr>
-            <?php
-            }
-        }else{
-            echo "<h2>You have no Recordings!</h2>";
+        echo "
+        <table style=\"border-collapse: collapse;\" border=\"0\">
+            <tr style='font-weight:bold;'>
+                <td>Date&Time Sent</td>
+                <td>Audio</td>
+            </tr>";
+        while ($row = mysqli_fetch_array($query)){
+            $element = "";
+            $element .= "<audio controls>";
+            $element .= "<source src= '".$row['file_path']."' type='audio/mpeg'>";
+            $element .= "Your browser does not support the audio element.";
+            $element .= "</audio>";
+            echo "<tr>
+                    <td> ".$row['create_at']." </td>
+                    <td>$element</td>
+                </tr>";
+        }
+    }else{
+            echo "<h2>No Audio Files Found!</h2>";
         }
         ?>
+       
     </div>
 
 </body>
