@@ -18,11 +18,30 @@
 
   
     <link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet">
+    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css'>
     <link rel="stylesheet" type="text/css" href="normalize-5.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
     <script src="osd.js"></script>
-
+    </head>
+    <style>
+    html,body{
+		padding: 0 !important;
+		margin: 0 !important;
+	}
+		body{
+			background: url("microphone.jpg") no-repeat fixed center !important;
+		}
+</style>
    <body>
+   <br><br><br><br>
+   <form action="search.php" class="container">
+      <button type="submit" class="btn btn-primary btn-lg">Back To Search</button>
+    </form>
+    
+   <br>
      <?php /* session_start(); */
      $un = $_GET['un'];
         if ($_SESSION['logged_in']!=true){
@@ -35,29 +54,6 @@
         }
             
     ?>
-    
-    <div class="navbar">
-        <a href='home.php'>Home</a>
-        <a class="active" href='search.php'>Search</a>
-        <a href='settings.php'>Settings</a>
-        <a href='contactus.php'>Contact Us</a>
-        <a href='aboutus.php'>About Us</a>
-        
-
-        <a style="float:right;" href="logout.php">Log Out</a>
-        <strong style="float:right;">
-        <?php
-            if ($_SESSION['logged_in']==true){
-                ?><img src="images/<?php echo $_SESSION["image"]; ?>" alt=""width="20" height="20" style="border-radius: 50%;">
-                <?php
-                echo $_SESSION['user'];
-            }elseif ($_SESSION['logged_in']==false){
-                echo 'failed';
-            }
-        ?>
-        </strong>
-
-    </div>
 
     <!--[if lt IE 8]>
         <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
@@ -101,7 +97,7 @@
     }
     @keyframes blinker {
       50% {
-        color: orange;
+        color: black;
       }
     }
     </style>
@@ -117,15 +113,15 @@
             <div class="header" style="text-align:center; font-weight:bold;">Input Audio</div>
             <div style="text-align:center; flex-grow:1; display:flex; min-height: 100px;">
               <div style="margin:auto; position:relative;">
-               
-                <button id="microphone-button" style="padding: 0.5rem;" onclick="recordFromMicrophone();">
-                  <span class="start">🎙Record</span><span class="mic-enable" style="display:none;">please enable microphone</span><span class="stop" style="display:none;">(<span class="time"></span>) stop recording</span>
+              <h3 style="color: #337ab7">Send Encrypted Audio to: <?php echo $_GET['un']?></h3>
+                <button id="microphone-button" style="padding: 0.5rem;" onclick="recordFromMicrophone();" type="button" class="btn btn-primary btn-lg">
+                  <span class="start">🎙Record</span><span class="mic-enable" style="display:none ;">please enable microphone</span><span class="stop" style="display:none;">(<span class="time"></span>) stop recording</span>
                 </button>
-               
                   <div id="audio-load-success" style="z-index:10; color: black; text-align: center;position: absolute;top: 0;left: 0;right: 0;bottom: 0;background: #ffffff;margin: 0; display:none;">
-                  <div style="margin:auto;">
-                    <p style="margin-top: 0;margin-bottom: 0.3rem;width:150px">Success!</p>
-                    <button onclick="this.parentNode.parentNode.style.display='none';DsbSave();">Record Again</button>
+                  <div>
+                  <!-- <p>Success</p> -->
+                  <button style="width: 320px" type="button" class="btn btn-info" onclick="this.parentNode.parentNode.style.display='none';DsbSave();">Recorded! Record Again?</button>
+                    <!-- <p style="margin-top: 0;margin-bottom: 0.3rem;width:150px">Success!</p> -->
                   </div>
                 </div>
                 <div id="audio-loading-input" style="z-index:10; color: black; text-align: center;position: absolute;top: 0;left: 0;right: 0;bottom: 0;background: #ffffff;margin: 0; display:none;">
@@ -149,8 +145,8 @@
               <div class="header" style="text-align:center; font-weight:bold;">Output Audio</div>
               <div style="text-align:center; flex-grow:1; margin:1rem 0;">
                 <audio id="output-audio-tag" controls="controls"></audio>
-                <br><button id="regenerateAudioButton" style="margin:0 auto; margin-bottom: 0.3rem;" onclick="loadOutputAudio();EnbSave();">Change Voice</button>
-                <button id="saveButton" disabled style="margin:0 auto; margin-bottom: 0.3rem;" onclick="SaveRec();" >Send</button>
+                <br><button type="button" class="btn btn-primary btn-lg" id="regenerateAudioButton" style="margin:0 auto; margin-bottom: 0.3rem;" onclick="loadOutputAudio();EnbSave();">Change Voice</button>
+                <button type="button" class="btn btn-primary btn-lg" id="saveButton" disabled style="margin:0 auto; margin-bottom: 0.3rem;" onclick="SaveRec();" >Send</button>
               <!--  <a style="margin: 0 auto; width: min-content;" href="#" id="download-output-audio-link" download="output.wav"><button>download</button></a>-->
               </div>
             </div>
@@ -196,7 +192,7 @@
         border-radius:2px;
       }
       .effect .header .icon:hover {
-        background:#e4e4e4;
+        background:#1cbced;
       }
       .effect .description {
         border-bottom: 1px solid lightgrey;
@@ -247,7 +243,7 @@
       }
 
       .range-param-display:hover {
-        background: #f3f3f3;
+        background: #f2f4f6;
       }
       </style>
 
@@ -503,6 +499,7 @@
                   alert(result.data);
                   if(result.status=='1')
                    document.getElementById("saveButton").disabled = true;
+                   window.location.href="userprofile.php?un=<?php echo $_GET['un']?>"
 
         }
 

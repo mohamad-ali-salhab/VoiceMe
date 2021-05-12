@@ -15,14 +15,17 @@ if (isset($_POST['fullname']) && isset($_POST['message'])) {
 	$message = validate($_POST['message']);
 
 	if (empty($message) || empty($fullname)) {
-		header("Location: contactus.html");
+		header("Location: contactus.php");
 	}else {
 
 		$sql = "INSERT INTO `complaints`(`Full Name`, `Message`) VALUES ('$fullname','$message')";
 		$res = mysqli_query($conn, $sql);
 
 		if ($res) {
-			echo "Your message was sent successfully!";
+			$referer = "contactus.php";
+		    $errcode="msg=4";
+		    header("Location: $referer?$errcode");
+			//echo "Your message was sent successfully!";
 		}else {
 			echo "Your message could not be sent!";
 		}

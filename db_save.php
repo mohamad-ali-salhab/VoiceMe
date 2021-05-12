@@ -11,7 +11,7 @@ try {
     {
         try
 		{
-			 $conn = new PDO("mysql:host=localhost;dbname=u842291346_voiceme;connectionpooling=0", "u842291346_mohamadadmin", "LOrd202020$$");	
+			 $conn = new PDO("mysql:host=localhost;dbname=test;connectionpooling=0", "root", "");	
 			 $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
              $stmt = $conn->prepare("insert into records(file_name,file_path,receiver_name,create_at)
                     VALUES(:field1,:field2,:field3,'".date("Y-m-d H:i:S")."')");
