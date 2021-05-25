@@ -2,7 +2,7 @@
 require_once "db_conn.php";
 
 if (isset($_GET['term'])) {
-     
+  
     $query = "SELECT * FROM `users` WHERE `Username` LIKE '{$_GET['term']}%' LIMIT 25";
     $result = mysqli_query($conn, $query);
  

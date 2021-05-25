@@ -21,7 +21,7 @@ try {
 		catch(PDOException $e) {
 			var_dump($e->getMessage());
 		}
-        $response=array("data"=>"Data Sent", "status"=>"1");      
+        $response=array("data"=>"Audio Successfully sent to user", "status"=>"1");      
     }
     else
     { 

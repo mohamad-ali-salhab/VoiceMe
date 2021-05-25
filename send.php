@@ -63,7 +63,7 @@
 											echo "This email address not Exist!";
 										}
 									}else{
-										echo "Something went wrong. Please try again!";
+										echo "Something went wrong. fetry again!";
 									}
 								}
 							}else{
@@ -77,8 +77,9 @@
 							//echo "Please upload an image file - jpeg, png, jpg";
 						}
 					}
+	}
 			}
-		}}
+		}
 		else{
 			//echo "Enter a valid Email";
 			$referer = "register.php";

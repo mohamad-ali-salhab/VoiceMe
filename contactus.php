@@ -11,13 +11,16 @@ include "validation.php"
     <title>Contact Us</title>
     <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css'>
     <link rel="stylesheet" href="./style.css">
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js'></script>
+    <script src='https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js'></script>
+
 	<style>
 	html,body{
 		padding: 0 !important;
 		margin: 0 !important;
 	}
 		body{
-			background: lightblue url("backgroundinside.jpeg") no-repeat fixed center;
+			background: #B0C4DE url("backgroundinside.jpeg") no-repeat fixed center;
 		}
 
   </style>
@@ -68,7 +71,7 @@ include "validation.php"
                    
                   <?php }
                    elseif ($_SESSION['logged_in']==false){
-						header("Location: index.php");
+                       echo 'failed';
                    }
                    ?></li>
                    <li class="nav-item pl-4 pl-md-0 ml-0 ml-md-4">

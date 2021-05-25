@@ -5,6 +5,7 @@ include "db_conn.php";
 ?>
 
 
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -21,6 +22,7 @@ include "db_conn.php";
     
     <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css'>
     <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href="audio.css">
 
     <style>
 	html,body{
@@ -28,7 +30,7 @@ include "db_conn.php";
 		margin: 0 !important;
 	}
 		body{
-			background: lightblue url("backgroundinside.jpeg") no-repeat fixed center;
+			background: #B0C4DE url("backgroundinside.jpeg") no-repeat fixed center;
 		}
 
   </style>
@@ -52,7 +54,7 @@ include "db_conn.php";
 						<div class="collapse navbar-collapse" id="navbarSupportedContent">
 							<ul class="navbar-nav ml-auto py-4 py-md-0">
 								<li class="nav-item pl-4 pl-md-0 ml-0 ml-md-4 active">
-                <a class="nav-link" href="home.php">Home</a>
+                                <a class="nav-link" href="home.php">Home</a>
 								</li>
 								<li class="nav-item pl-4 pl-md-0 ml-0 ml-md-4">
 									<a class="nav-link" href="search.php">Search</a>
@@ -80,7 +82,7 @@ include "db_conn.php";
                    
                   <?php }
                    elseif ($_SESSION['logged_in']==false){
-                        header("Location: index.php");
+                       echo 'failed';
                    }
                    ?></li>
                    <li class="nav-item pl-4 pl-md-0 ml-0 ml-md-4">
@@ -169,7 +171,7 @@ include "db_conn.php";
 
         <div class="container">
                 <?php 
-                 $query = mysqli_query($conn,"SELECT file_path, receiver_name, create_at FROM records WHERE receiver_name ='".$_SESSION['user']."'");
+                 $query = mysqli_query($conn,"SELECT * FROM records WHERE receiver_name ='".$_SESSION['user']."'");
                  if (mysqli_num_rows($query)>0){
                      ?>
                 <div class="card-body">
@@ -197,8 +199,10 @@ include "db_conn.php";
                                 <td  class="text-center"><?php echo $row['create_at'] ?></td>
                                 <td  class="text-center"><?php echo $element ?></td>
                                 <td  class="text-center">
-                                    <button class="btn btn-primary badge-pill" style="width:80px;"> Status </button>
-                                    <button class="btn btn-danger badge-pill" style="width:80px;"> DELETE </button>
+                                <form action="deleterecorduser.php?rid=<?php  echo $row['id'] ?>"  method="POST" >
+                                    <button type = "submit" class="btn btn-danger badge-pill" style="width:80px;"> DELETE </button>
+                                </form>
+                                </td>
                             </tr>
                             <?php }}else{
                             ?><h2>No Audio Files Found!</h2><?php
@@ -208,6 +212,28 @@ include "db_conn.php";
                 </div>
             </div>
         </div>
+
+        <?php
+if(isset($_GET['msg']))
+            {
+                $msg=$_GET['msg'];
+        
+            }
+            else $msg = NULL;
+            if($msg)
+            {
+                if($msg==3){
+                    echo'<script>alert("Record Deleted Successfully.")</script>';
+
+                }
+                elseif($msg==4){
+                    echo'<script>alert("An error occured and record was not delete.")</script>';
+                }
+            }
+    ?>
+
+
+
 
 </body>
 </html>

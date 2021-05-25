@@ -10,12 +10,10 @@
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+	  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="stylelogin.css">
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script> 
-    <script src="//geodata.solutions/includes/countrystatecity.js"></script>
-    <script type="text/javascript" src="register.js"></script>
+
 
     <!-- <video playsinline autoplay muted loop poster="background.mp4" id="bgvid">
         <source src="background.mp4" type="video/mp4">
@@ -24,7 +22,7 @@
 </head>
 
 
-<body style="background-image: url('background2.jpg');">
+<body style="background-image: url('test13.jpg');">
     <div class="container">
         <div class="d-flex justify-content-center h-100">
             <div class="card" style="height: 600px; width: 800px">
@@ -38,8 +36,8 @@
 				    </div>
 			    </div>
             <div class="card-body">
-                <form name="myform" action="send.php" method="POST" enctype="multipart/form-data">
-                    
+                <!--<form name="myform" action="send.php" onsubmit="return checkpass()" method="POST" enctype="multipart/form-data">-->
+                <form action="send.php" onsubmit="return checkpass()" method="POST" enctype="multipart/form-data" autocomplete="off">
                     <div class="input-group form-group">
                         <div class="input-group-prepend">
 							            <span class="input-group-text"><i class="fas fa-user"></i></span>
@@ -67,11 +65,21 @@
                     </div>
 
                     <div class="input-group form-group">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text"><i class="fas fa-key"></i></span>
-					              </div>
-                    <input class="form-control" type="password" name="password" placeholder="Password" required>
-                    </div>            
+                      <div class="input-group-prepend">
+                          <span class="input-group-text"><i class="fas fa-key"></i></span>
+					            </div>
+                      <input class="form-control" id="password" type="password" name="password" placeholder="Password" required>
+                    </div>
+                      <div class="row align-items-center remember">
+                        
+                        <input type="checkbox" onclick="showPass()">Show Password<br>
+                        
+                      </div>
+                      <div>
+                      <progress max="100" value="0" id="strength" style="width: 230px"></progress>
+                      </div>
+                    
+                    <br>            
                     
                     
                     <div class="input-group form-group">
@@ -111,6 +119,7 @@
                     <div class="form-group" style="justify-content: center">
                         <input class="btn float-right login_btn" type="submit" name="submit" value="Register" style="width: 250px">
                     </div>
+                   
                     <br><br>
                     <div class="d-flex justify-content-center links">
                         <a href="index.php">Already have an account? Login Here!</a>
@@ -119,6 +128,12 @@
                     </div>
 
                     </div>
+        </div>
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script> 
+   <script src="//geodata.solutions/includes/countrystatecity.js"></script> 
+    <script type="text/javascript" src="register.js"></script>
+    </div>
+                
 
                 </form>
 

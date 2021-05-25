@@ -8,18 +8,19 @@ include "validation.php"
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/navbar2.css">
     <link rel="stylesheet" href="css/aboutus.css">
     <title>About Us</title>
     <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css'>
     <link rel="stylesheet" href="./style.css">
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js'></script>
+    <script src='https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js'></script>
     <style>
 	html,body{
 		padding: 0 !important;
 		margin: 0 !important;
 	}
 		body{
-			background: lightblue url("backgroundinside.jpeg") no-repeat fixed center;
+			background: #B0C4DE url("backgroundinside.jpeg") no-repeat fixed center;
 		}
 
   </style>
@@ -42,7 +43,7 @@ include "validation.php"
 						<div class="collapse navbar-collapse" id="navbarSupportedContent">
 							<ul class="navbar-nav ml-auto py-4 py-md-0">
 								<li class="nav-item pl-4 pl-md-0 ml-0 ml-md-4">
-                <a class="nav-link" href="home.php">Home</a>
+                                <a class="nav-link" href="home.php">Home</a>
 								</li>
 								<li class="nav-item pl-4 pl-md-0 ml-0 ml-md-4">
 									<a class="nav-link" href="search.php">Search</a>
@@ -70,7 +71,7 @@ include "validation.php"
                    
                   <?php }
                    elseif ($_SESSION['logged_in']==false){
-                      header("Location: index.php");
+                       echo 'failed';
                    }
                    ?></li>
                    <li class="nav-item pl-4 pl-md-0 ml-0 ml-md-4">
@@ -85,7 +86,6 @@ include "validation.php"
 			</div>
 		</div>
 	</div>
-
 
 <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js'></script>
 <script src='https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js'></script>
@@ -144,9 +144,9 @@ include "validation.php"
 </script> 
 <br><br><br><br><br>
 
-    <div class="about-section">
+    <div class="about-section" style="background-color: #4682B4 !important">
         <h1 style="color:white">About Us</h1>
-        <p>VoiceMe secures audio-messaging between Users by hiding their Voice Identity upon changing 
+        <p >VoiceMe secures audio-messaging between Users by hiding their Voice Identity upon changing 
         pitches of the recorded audio, by the will of the user. 
         VoiceMe users must be sure that no raw recordings will be saved in our Database, 
         and thus users can feel free to express their feelings and opinions in their recordings.</p>
@@ -157,7 +157,7 @@ include "validation.php"
 <div class="row">
   <div class="column">
     <div class="card">
-      <img src="aboutus images/drmohamadnassar.jpeg" alt="Pr.Mohamad-Pic" style="width:100% height: 560px">
+      <img src="aboutus images/drmohamadnassar.jpeg" alt="Pr.Mohamad-Pic" style="width:100%">
       <div class="container">
       <br><br>
         <h2>Mohamad El Baker Nassar</h2>
@@ -171,7 +171,7 @@ include "validation.php"
 
   <div class="column">
     <div class="card">
-      <img src="aboutus images/salhab.jpeg" alt="Mohamad-Pic" style="width:100% height: 560px">
+      <img src="aboutus images/salhab.jpeg" alt="Mohamad-Pic" style="width:100%">
       <div class="container">
       <br><br>
         <h2>Mohamad Ali Salhab</h2>
@@ -185,7 +185,7 @@ include "validation.php"
 
   <div class="column">
     <div class="card">
-      <img src="aboutus images/NEW3.jpg" alt="Hadi-Pic" style="width:100% height: 560px">
+      <img src="aboutus images/NEW3.jpg" alt="Hadi-Pic" style="width:100%">
       <div class="container">
       <br><br>
         <h2>Hadi Najdi</h2>
@@ -198,6 +198,6 @@ include "validation.php"
     </div>
   </div>
 </div>           
-
+<br><br><br><br>
 </body>
 </html>

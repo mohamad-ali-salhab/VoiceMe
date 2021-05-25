@@ -20,7 +20,7 @@ include "validation.php"
 		margin: 0 !important;
 	}
 		body{
-			background: lightblue url("backgroundinside.jpeg") no-repeat fixed center;
+			background: #B0C4DE url("backgroundinside.jpeg") no-repeat fixed center;
 		}
 
   </style>
@@ -44,7 +44,7 @@ include "validation.php"
 						<div class="collapse navbar-collapse" id="navbarSupportedContent">
 							<ul class="navbar-nav ml-auto py-4 py-md-0">
 								<li class="nav-item pl-4 pl-md-0 ml-0 ml-md-4">
-                                <a class="nav-link" href="home.php">Home</a>
+                                <a class="nav-link" href="home.php"><b>Home</b></a>
 								</li>
 								<li class="nav-item pl-4 pl-md-0 ml-0 ml-md-4">
 									<a class="nav-link" href="search.php">Search</a>
@@ -147,21 +147,28 @@ include "validation.php"
 
 
 <br><br><br><br><br><br>
-    <div class="container">
-    <h3>Change Password</h3>
-    <form action="changepass.php" name="change-password" method="POST" enctype="multipart/form-data" autocomplete="off">
+<h1>Change Password</h1>
+    <div class="container"id="container2">
+    <form action="changepass.php" onsubmit="return checkequal()" name="change-password" method="POST" enctype="multipart/form-data" autocomplete="off">
         <input type="password" name="oldpass" placeholder="Old Password" required>
-        <input type="password" name="newpass1" placeholder="New Password" required>
-        <input type="password" name="newpass2" placeholder="Confirm New Password" required>
-
+        <input type="password" name="newpass1" id="newpass1" placeholder="New Password" required>
+        <div>
+            <input type="checkbox" onclick="showPass()">Show Password
+        </div>
+        <div>
+            <progress max="100" value="0" id="strength" style="width: 230px"></progress>
+        </div><br>
+        <!--<input type="password" name="newpass2" placeholder="Confirm New Password" required>-->
+        
         <input type="submit" name="changepassword" value="Change Password">
+
+    
     </form>
     </div>
     <br>
     <br>
-
-    <div class="container">
-        <h3>Change Username</h3>
+    <h1>Change Username</h1>
+    <div class="container" id="container2">
         <form action="changeuser.php" name="change-username" method="POST" enctype="multipart/form-data" autocomplete="off">
         <input type="text" name="newusername" placeholder="New Username" required>
         <input type="password" name="password" placeholder="Enter your Password" required>
@@ -171,16 +178,67 @@ include "validation.php"
     </div>
     <br>
     <br>
-
-    <div class="container">
+    <h1>Change Profile Picture</h1>
+    <div class="container" id="container2">
         <form action="changepp.php" name="change-profile" method="POST" enctype="multipart/form-data" autocomplete="off"> 
         <h3>Change Profile Picture</h3>
         <div class="field image">
-            <input type="file" name="image" accept="image/x-png,image/gif,image/jpeg,image/jpg">
+            <input type="file" name="image" accept="image/x-png,image/gif,image/jpeg,image/jpg"><br><br>
             <input type="submit" name="changeprofilepicture" value="Change Profile Picture">
         </div>
         </form>
     </div>
+    <!--style for the contact from-->
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+body {font-family: Arial, Helvetica, sans-serif;}
+* {box-sizing: border-box;}
+
+input[type=text], select, textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  margin-top: 6px;
+  margin-bottom: 16px;
+  resize: vertical;
+}
+input[type=password], select, textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  margin-top: 6px;
+  margin-bottom: 16px;
+  resize: vertical;
+}
+input[type=submit] {
+  background-color: #2196F3;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+input[type=submit]:hover {
+  background-color: darkblue;
+}
+
+#container2 {
+  border-radius: 5px;
+  background-color: #f2f2f2;
+  padding: 20px;
+}
+</style>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script> 
+    <script src="//geodata.solutions/includes/countrystatecity.js"></script> 
+    <script type="text/javascript" src="settings.js"></script>
+    
+
+
     <?php
     if(isset($_GET['error']))
     {
@@ -226,4 +284,11 @@ include "validation.php"
             
             }
     ?>
+
+            
+
+
+
 </body>
+<br><br><br><br>
+</html>

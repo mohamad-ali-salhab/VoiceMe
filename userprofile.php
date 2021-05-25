@@ -301,23 +301,6 @@
         }
       });
 
-      async function makeRandomVoice() {
-        let effects = shuffleArray(effectSpecs.slice(0)).slice(0, 2 + Math.round(Math.random())).map(e => JSON.parse(JSON.stringify(e))).map(e => ({name:e.name, params:e.params.reduce((a,v) => (a[v.name]=v.value,a), {})}));
-        [...effectsList.querySelectorAll(".effect")].forEach(el => el.querySelector(".remove").click())
-        await new Promise(r => setTimeout(r, 100));
-        for(let {name, params} of effects) {
-          addEffect(name, params);
-        }
-      }
-
-      function shuffleArray(array) {
-        for (let i = array.length - 1; i > 0; i--) {
-          const j = Math.floor(Math.random() * (i + 1));
-          [array[i], array[j]] = [array[j], array[i]];
-        }
-        return array;
-      }
-
       function addEffect(name, params, placement="end") {
         params = JSON.parse(JSON.stringify(params));
 
@@ -418,7 +401,7 @@
       let alreadyLoadingOutputAudio = false;
       async function loadOutputAudio() {
         if(typeof globalAudioBuffer === 'undefined' || !globalAudioBuffer) {
-          alert("Have you chosen an input audio file, or recorded an audio clip using your microphone? Please do that first 👍");
+          alert("Have you chosen an input audio file, or recorded an audio clip using your microphone? Please do that first ");
           document.getElementById("saveButton").disabled = true;
           return;
         }
@@ -465,7 +448,7 @@
       async function SaveRec()
       {
         if(typeof globalAudioBuffer === 'undefined' || !globalAudioBuffer) {
-          alert("Have you chosen an input audio file, or recorded an audio clip using your microphone? Please do that first 👍");
+          alert("Have you chosen an input audio file, or recorded an audio clip using your microphone? Please do that first ");
         }
         else
         {
